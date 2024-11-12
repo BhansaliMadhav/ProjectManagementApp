@@ -3,7 +3,6 @@
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsSidebarCollapsed } from "@/state";
 
-import { signOut } from "aws-amplify/auth";
 import {
   AlertCircle,
   AlertOctagon,
@@ -36,13 +35,7 @@ const Sidebar = () => {
     (state) => state.global.isSidebarCollapsed,
   );
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
-  };
+  const handleSignOut = async () => {};
 
   const sidebarClassNames = `fixed flex flex-col h-[100%] justify-between shadow-xl
     transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white
@@ -90,6 +83,54 @@ const Sidebar = () => {
           <SidebarLink icon={User} label="Users" href="/users" />
           <SidebarLink icon={Users} label="Teams" href="/teams" />
         </nav>
+        <button
+          onClick={() => setShowProjects((prev) => !prev)}
+          className="flex w-full items-center justify-between px-8 py-3 text-gray-500"
+        >
+          <span className="">Priority</span>
+          {showProjects ? (
+            <ChevronUp className="h-5 w-5" />
+          ) : (
+            <ChevronDown className="h-5 w-5" />
+          )}
+        </button>
+        {/* Priorities Links */}
+        <button
+          onClick={() => setShowPriority((prev) => !prev)}
+          className="flex w-full items-center justify-between px-8 py-3 text-gray-500"
+        >
+          <span className="">Priority</span>
+          {showPriority ? (
+            <ChevronUp className="h-5 w-5" />
+          ) : (
+            <ChevronDown className="h-5 w-5" />
+          )}
+        </button>
+        {showPriority && (
+          <>
+            <SidebarLink
+              icon={AlertCircle}
+              label="Urgent"
+              href="/priority/urgent"
+            />
+            <SidebarLink
+              icon={ShieldAlert}
+              label="High"
+              href="/priority/high"
+            />
+            <SidebarLink
+              icon={AlertTriangle}
+              label="Medium"
+              href="/priority/medium"
+            />
+            <SidebarLink icon={AlertOctagon} label="Low" href="/priority/Low" />
+            <SidebarLink
+              icon={Layers3}
+              label="Backlog"
+              href="/priority/backlog"
+            />
+          </>
+        )}
       </div>
     </div>
   );
