@@ -6,7 +6,8 @@ import morgan from "morgan";
 import bodyParser from "body-parser";
 
 // Route Imports
-
+import projectRoutes from "./routes/projectRoutes";
+import taskRoutes from "./routes/taskRoutes";
 // Configurations
 dotenv.config();
 const app = express();
@@ -22,6 +23,10 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("This is home route");
 });
+// route related to projects
+app.use("/projects", projectRoutes);
+// route related to tasks
+app.use("/tasks", taskRoutes);
 
 // Server
 const port = process.env.PORT || 3000;
