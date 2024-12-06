@@ -10,6 +10,7 @@ import projectRoutes from "./routes/projectRoutes";
 import taskRoutes from "./routes/taskRoutes";
 import searchRoutes from "./routes/searchRoutes";
 import userRoutes from "./routes/userRoutes";
+import teamRoutes from "./routes/teamRoutes";
 
 // Configurations
 dotenv.config();
@@ -34,9 +35,10 @@ app.use("/tasks", taskRoutes);
 app.use("/search", searchRoutes);
 // route related to users
 app.use("/users", userRoutes);
-
+// route related to teams
+app.use("/teams", teamRoutes);
 // Server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const port = Number(process.env.PORT) || 3000;
+app.listen(port, "0.0.0.0", () => {
   console.log(`baby! server is running on port ${port}`);
 });
