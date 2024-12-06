@@ -50,13 +50,19 @@ export interface Task {
   startDate?: string;
   dueDate?: string;
   points?: string;
-  projectId: string;
-  authorUserId?: string;
-  assignedUserId?: string;
+  projectId: number;
+  authorUserId?: number;
+  assignedUserId?: number;
   author?: User;
   assignee?: User;
   comments?: Comment[];
   attachments?: Attachment[];
+}
+
+export interface SearchResults {
+  tasks?: Task[];
+  projects?: Project[];
+  users?: User[];
 }
 
 export const api = createApi({
@@ -64,7 +70,7 @@ export const api = createApi({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
   }),
   reducerPath: "api",
-  tagTypes: ["Projects", "Tasks"],
+  tagTypes: ["Projects", "Tasks", "Users"],
   endpoints: (build) => ({
     getProjects: build.query<Project[], void>({
       query: () => "projects",
@@ -87,7 +93,7 @@ export const api = createApi({
     }),
     createTask: build.mutation<Task, Partial<Task>>({
       query: (task) => ({
-        url: "task",
+        url: "tasks",
         method: "POST",
         body: task,
       }),
@@ -103,6 +109,13 @@ export const api = createApi({
         { type: "Tasks", id: taskId },
       ],
     }),
+    getUsers: build.query<User[], void>({
+      query: () => "users",
+      providesTags: ["Users"],
+    }),
+    search: build.query<SearchResults, string>({
+      query: (query) => `search?query=${query}`,
+    }),
   }),
 });
 
@@ -112,4 +125,6 @@ export const {
   useGetTasksQuery,
   useCreateTaskMutation,
   useUpdateTaskStatusMutation,
+  useSearchQuery,
+  useGetUsersQuery,
 } = api;
