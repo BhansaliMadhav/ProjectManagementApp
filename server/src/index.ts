@@ -8,6 +8,9 @@ import bodyParser from "body-parser";
 // Route Imports
 import projectRoutes from "./routes/projectRoutes";
 import taskRoutes from "./routes/taskRoutes";
+import searchRoutes from "./routes/searchRoutes";
+import userRoutes from "./routes/userRoutes";
+
 // Configurations
 dotenv.config();
 const app = express();
@@ -27,6 +30,10 @@ app.get("/", (req, res) => {
 app.use("/projects", projectRoutes);
 // route related to tasks
 app.use("/tasks", taskRoutes);
+// route related to search
+app.use("/search", searchRoutes);
+// route related to users
+app.use("/users", userRoutes);
 
 // Server
 const port = process.env.PORT || 3000;
