@@ -1,10 +1,9 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import bodyParser from "body-parser";
-
 // Route Imports
 import projectRoutes from "./routes/projectRoutes";
 import taskRoutes from "./routes/taskRoutes";
@@ -37,6 +36,7 @@ app.use("/search", searchRoutes);
 app.use("/users", userRoutes);
 // route related to teams
 app.use("/teams", teamRoutes);
+
 // Server
 const port = Number(process.env.PORT) || 3000;
 app.listen(port, "0.0.0.0", () => {
