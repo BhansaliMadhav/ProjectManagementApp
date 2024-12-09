@@ -1,0 +1,7 @@
+FROM node:23-alpine3.19
+COPY . /
+RUN npm i
+ENV NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+ENV NEXT_PUBLIC_COGNITO_USER_POOL_ID="us-east-1_8u8B1kbNM"
+ENV NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID="4kte67sdn5kgnnbu2gf7bu8rej"
+CMD ["npm","run","dev"]
