@@ -1,0 +1,9 @@
+version: "3"
+services:
+  node:
+    image: pm_clientv1.1.0:latest
+    ports: [3000:3000, 8000:8000]
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+      - NEXT_PUBLIC_COGNITO_USER_POOL_ID="us-east-1_8u8B1kbNM"
+      - NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID="4kte67sdn5kgnnbu2gf7bu8rej"
